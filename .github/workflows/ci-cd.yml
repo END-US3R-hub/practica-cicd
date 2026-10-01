@@ -1,0 +1,30 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  integracion-y-despliegue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias
+        run: pip install pytest
+
+      - name: Ejecutar pruebas
+        run: pytest test_app.py
+
+      - name: Construir la aplicación
+        run: echo "Empaquetando la aplicación de validación de red..."
+
+      - name: Configurar el despliegue
+        run: echo "Desplegando servicio en el servidor Rocky Linux de producción..."
